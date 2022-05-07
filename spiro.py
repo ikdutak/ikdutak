@@ -94,3 +94,76 @@ class Spiro:
         # clear everything
         def clear(self):
             self.t.clear()
+    # a class for animating Spirographs
+    class SpiroAnimator:
+        # constructor
+        def __init__(self, N):
+            # set the time value in milliseconds
+            self.deltaT = 10
+            # get the window dimensions
+            self.width = turtle.window.width()
+            self.height = turtle.window.height()
+            # create the Spiro objects
+            self.spiros = []
+            for i in range(N):
+                # generate random parameters
+                rparams = self.genRandamParams()
+                # set the spiro parameters
+                spiro = Spiro(*rparams)
+                self.spiros.append(spiro)
+            # call timer
+            turtle.ontimer(self.update, self.deltaT)
+
+        # restart spiro drawing
+        def restart(self):
+            for spiro in self.spiros: 
+                # clear
+                spiro.clear()
+                # generate random parameters
+                rparams = self.genRandomParams()
+                # set the spiro parameters
+                spiro.setparams(*rparams)
+                # restart drawing
+                spiro.restart()
+
+        # generate random parameters
+        def genRandomParams(self):
+            width, height = self.width, self.heightR = random.randint(50, min(width, height)//2)
+            r = random.randint(10, 9*R//10)
+            l = random.uniform(0.1, 0.9)
+            xc = random.randint(-width//2, width//2)
+            yc = random.randint(-height//2, height//2)
+            col = (random.random(), random.random(), random.random())
+            return (xc, yc, col, R, r, l)
+        
+        def update(self):
+            # update all spiros
+            nComplete = 0
+            for spiro in self.spiros:
+                # update
+                spiro.update()
+                # count completed spiros
+                if spiro.drawingComplete:
+                    nComplete += 1
+            # restart if all spiros are complete
+            if nComplete == len(slef.spiros):
+                self.restart()
+            # call the timer
+            turtle.ontimer(self.update, self.deltaT)
+
+        # toggle turtle cursor on and off
+        def toggleTurtles(self):
+            for spiro in self.spiros:
+                if spiro.t.isvisible():
+                    spiro.t.hideturtle()
+                else:
+                    spiro.t.showturtle
+    
+    # save drawings as PNG files
+    def saveDrawing():
+        # hide the turtle cursor
+        turtle.hideturtle()
+        # generate unique filenames
+        dateStr = (datetime.now()).strftime("%d%b%Y-%H%M%S")
+        fileName = 'spiro-' + dateStr
+        
