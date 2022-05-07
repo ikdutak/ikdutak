@@ -66,7 +66,7 @@ class Spiro:
     def draw(self):
         # draw the rest of the points
         R, k, l = self.R, self.k, self.l
-        for i in range(0, 360*self.nRot + 1, self.stop):
+        for i in range(0, 360*self.nRot + 1, self.step):
             a = math.radians(i)
             x = R*((1-k)*math.cos(a) + l*k*math.cos((1-k)*a/k))
             y = R*((1-k)*math.sin(a) + l*k*math.sin((1-k)*a/k))
@@ -87,7 +87,7 @@ class Spiro:
         a = math.radians(self.a)
         x = R*((1-k)*math.cos(a) + l*k*math.cos((1-k)*a/k))
         y = R*((1-k)*math.sin(a) + l*k*math.sin((1-k)*a/k))
-        self.t.pos(self.xc + x, self.yc + y)
+        self.t.setpos(self.xc + x, self.yc + y)
         # if the drawing is complete, set the flag
         if self.a >= 360*self.nRot:
             self.drawingComplete = True
@@ -104,13 +104,13 @@ class SpiroAnimator:
         # set the time value in milliseconds
         self.deltaT = 10
         # get the window dimensions
-        self.width = turtle.window.width()
-        self.height = turtle.window.height()
+        self.width = turtle.window_width()
+        self.height = turtle.window_height()
         # create the Spiro objects
         self.spiros = []
         for i in range(N):
             # generate random parameters
-            rparams = self.genRandamParams()
+            rparams = self.genRandomParams()
             # set the spiro parameters
             spiro = Spiro(*rparams)
             self.spiros.append(spiro)
