@@ -3,6 +3,7 @@ import numpy as np
 import math
 import turtle
 import random
+import numpy as np
 from PIL import Image
 from datetime import datetime
 from math import gcd
